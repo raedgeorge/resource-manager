@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fire products</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+
+<div class="container" style="width: 80%; margin-top: 50px; background-color: lightgray
+            ;padding: 10px">
+
+    <div>
+        <label th:text="'Add new item'"></label>
+    </div>
+    <div style="background-color: white; padding: 10px; border-radius: 10px">
+        <form action="#" th:action="@{/fire/saveItem}" th:object="${fire}" method="post">
+
+            <input type="hidden" th:field="*{id}">
+
+            <div style="margin-top: 10px">
+            <label th:text="'Description'">description</label>
+            <input type="text" th:field="*{description}"
+                   style="width: 10cm; margin-left: 29px; border-radius: 3px">
+            </div>
+
+            <div style="margin-top: 10px">
+            <label th:text="'Type number'">tybe number</label>
+                <input type="text" th:field="*{tybeNumber}"
+                       style="width: 10cm; margin-left: 20px; border-radius: 3px">
+            </div>
+
+            <div style="margin-top: 10px">
+                <label th:text="'Quantity'">quantity</label>
+                <input type="number" th:field="*{quantity}"
+                       style="width: 10cm; margin-left: 50px; border-radius: 3px">
+            </div>
+
+            <div style="margin-top: 10px">
+                <label th:text="'Brand'">brand</label>
+                <select th:field="*{brands}" style="margin-left: 66px; width: 3cm">
+                    <option th:each="temp: ${T(com.atech.mongodbapp.entity.products.Brands).values()}"
+                            th:text="${temp.name()}"
+                            th:value="${temp.name()}"
+                    >value</option>
+                </select>
+            </div>
+
+            <div style="margin-top: 15px">
+            <button type="submit" class="btn btn-primary" style="width: 3cm;
+            margin-left: 4cm"
+            >Save</button>
+
+            <a href="#" th:href="@{/fire/list}" class="btn btn-danger" style="width: 3cm;
+            margin-left: 1cm">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+</body>
+</html>

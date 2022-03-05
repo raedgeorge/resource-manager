@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+<head>
+    <meta charset="UTF-8">
+    <title>home page</title>
+    <link rel="icon" href="/static/images/crm.png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+
+<div class="container" style="background-color: lightblue; margin-top: 40px; padding: 10px; border-radius: 10px">
+<div class="container-fluid" style="background-color: white">
+
+    <div class="h1">
+        <h1 th:text=" 'Atech Security DashBoard' ">welcome</h1>
+
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-info"
+            style="margin-left: 950px; width: 4cm"
+            >Log Out</button>
+        </form>
+    </div>
+
+    <div>
+        <label th:text="'Logged User: '" class="text-info">user</label>
+        <span sec:authentication="name"></span>
+    </div>
+
+
+</div>
+
+<div class="container" style="margin-top: 15px">
+
+    <a href="#" th:href="@{/employees/list}"
+       class="btn btn-primary"
+       style="height: 1cm; width: 3.5cm;">Employees</a>
+
+    <a href="#" th:href="@{/skill/add}"
+       class="btn btn-primary"
+       style="height: 1cm; width: 3.5cm; margin-left: 2cm">Skills</a>
+
+    <a href="#" th:href="@{/products/index}" class="btn btn-primary"
+       style="height: 1cm; width: 3.5cm; margin-left: 2cm">Store</a>
+
+</div>
+
+</div>
+</body>
+</html>

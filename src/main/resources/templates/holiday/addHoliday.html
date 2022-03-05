@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+<head>
+    <meta charset="UTF-8">
+    <title>add holiday</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+
+<div class="container" style="background-color: lightgray; margin-top: 50px
+           ;padding: 10px">
+
+    <div class="container-fluid" style="background-color: lightskyblue;">
+        <h3 th:text="'Add New Holiday'"></h3>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 15px" >
+        <form action="#" th:action="@{'/employee/'+ ${employee.id} + '/holiday/save'}"
+        th:object="${holiday}" method="post">
+
+        <div>
+            <label th:text="${employee.firstName} +' ' + ${employee.lastName}"></label>
+        </div>
+
+        <div style="margin-top: 10px">
+            <label th:text="'Start Date'">start date</label>
+            <input type="date" th:field="*{startDate}" style="width: 10cm; margin-left: 20px; border-radius: 2px" >
+        </div>
+
+        <div style="margin-top: 10px">
+            <label th:text="'End Date'">end date</label>
+            <input type="date" th:field="*{endDate}" style="width: 10cm; margin-left: 25px; border-radius: 2px">
+        </div>
+
+        <div style="margin-top: 10px">
+            <label th:text="'Information'">information</label>
+            <input type="text" th:field="*{info}" style="width: 10cm; margin-left: 9px; border-radius: 3px">
+        </div>
+
+        <div style="margin-top: 10px; margin-left: 88px;">
+        <button type="submit" class="btn btn-primary" style="width: 4cm">Save</button>
+        </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+</body>
+</html>

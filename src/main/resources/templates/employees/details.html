@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>details</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+    <div class="container" style="margin-top: 50px; background-color: lightgray; padding: 10px">
+
+        <div class="header" style="background-color: lightgray; padding: 5px">
+            <h2 th:text="${employee.firstName} +' ' + ${employee.lastName}"></h2>
+
+            <div style="border-color: deepskyblue; position:fixed; ">
+            <img src="../../static/images/face.png" th:src="@{'/images/'+ ${employee.id} + '/empImage'}"
+                 alt="face image"
+                 width="150" height="150" style="margin-left: 400px; border-radius: 50%"/>
+            </div>
+
+        </div>
+
+        <div class="input" style="background-color: lightskyblue; padding: 10px">
+            <label th:text="'Position'"></label>
+            <input type="text" th:field="${employee.position}" style="margin-left: 40px">
+        </div>
+
+        <div class="input" style="background-color: lightskyblue; padding: 10px">
+            <label th:text="'Email address'"></label>
+            <input type="text" th:field="${employee.email}">
+        </div>
+
+        <div class="input" style="background-color: lightskyblue; padding: 10px">
+            <label th:text="'Birth date'"></label>
+            <input type="text" th:field="${employee.birthDate}" style="margin-left: 27px">
+        </div>
+
+            <div style="margin-top: 10px">
+            <a href="#" th:href="@{/employees/list}" class="btn btn-danger" style="font-weight: bolder">Back</a>
+
+            <a href="#" th:href="@{'/images/'+${employee.id}+'/update'}"
+               class="btn btn-danger"
+               style="font-weight: bolder; margin-left: 100px">Change Image</a>
+            </div>
+
+</div>
+
+    <div class="container" style="background-color: lightgray; margin-top: 25px; padding: 10px">
+
+    <div class="container-fluid" style="background-color: lightskyblue;">
+        <h3 th:text="'Off Days'">Off Days</h3>
+    </div>
+
+        <div  style="margin-top: 10px">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Info</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="day : ${holidays}">
+                        <td th:text="${day.startDate}">10-2-2022</td>
+                        <td th:text="${day.endDate}">15-2-2022</td>
+                        <td th:text="${day.info}">personal</td>
+                        <td>
+                            <a href="#" th:href="@{/employees}">Update</a>
+                            |
+                            <a href="#" th:href="@{/employees}">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="color: black">
+            <div class="btn">
+                <a href="#" th:href="@{'/employee/' + ${employee.id} + '/holiday/add'}"
+                class="btn btn-primary">Add</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

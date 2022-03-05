@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add employee</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script rcs="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
+    ></script>
+
+</head>
+<body>
+
+<div class="container" style="width: 100%; margin-top: 10px">
+    <div class="container-fluid" style="background-color: lightblue">
+    <h1 th:text=" 'Add New Employee' "></h1>
+    </div>
+    <form action="#" th:action="@{/employees/saveEmployee}"
+          th:object="${employee}" method="post">
+
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p>please correct below errors</p>
+        </div>
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="container-fluid" style="background-color: lightgray; padding: 10px">
+
+        <div style="margin-top: 20px" th:class="${#fields.hasErrors('firstName')}">
+        <label th:text=" 'First name' "></label>
+        <input type="text" th:field="*{firstName}">
+        <span class="help-block" style="margin-left: 1.2cm" th:if="${#fields.hasErrors('firstName')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}" style="color: darkred"></li>
+            </ul>
+        </span>
+        </div>
+
+        <div style="margin-top: 10px" th:class="${#fields.hasErrors('lastName')}">
+            <label th:text=" 'Last name' "></label>
+            <input type="text" th:field="*{lastName}">
+            <span class="help-block" style="margin-left: 1.2cm" th:if="${#fields.hasErrors('lastName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}" style="color: darkred"></li>
+                </ul>
+            </span>
+        </div>
+
+
+        <div style="margin-top: 10px">
+            <label th:text=" 'Email' "></label>
+            <input type="text" th:field="*{email}" style="margin-left: 0.8cm">
+        </div>
+
+        <div style="margin-top: 10px">
+            <label th:text=" 'Birth date' "></label>
+            <input type="date" th:field="*{birthDate}" style="margin-left: 0.8cm">
+        </div>
+
+        <div style="margin-top: 10px">
+            <label th:text=" 'Position' "></label>
+            <select th:field="*{position}" style="margin-left: 0.3cm; margin-top: 10px">
+                <option th:each="title: ${T(com.atech.mongodbapp.entity.Position).values()}"
+                        th:text="${title.name()}"
+                        th:value="${title.name()}"
+                >Values</option>
+            </select>
+
+        </div>
+
+        <div class="btn" style="margin-left: 1.5cm; margin-top: 0.5cm">
+            <button type="submit" class="btn btn-primary" style="width: 2cm">
+            Save</button>
+
+            <input type="button" value="Cancel"
+             class="btn btn-danger" style="margin-left: 5px;"
+             th:onclick=" |window.location.href = '@{/employees/list}' | " />
+
+        </div>
+
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
