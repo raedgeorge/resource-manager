@@ -2,6 +2,9 @@ package com.atech.mongodbapp.service.products;
 
 import com.atech.mongodbapp.entity.products.Fire;
 import com.atech.mongodbapp.repository.products.FireRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,5 +58,13 @@ public class FireServiceImpl implements FireService {
     public List<Fire> searchAnyByString(String str) {
 
         return fireRepository.findAllByDescriptionOrTybeNumber(str);
+    }
+
+    @Override
+    public Page<Fire> findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+        return fireRepository.findAll(pageable);
     }
 }

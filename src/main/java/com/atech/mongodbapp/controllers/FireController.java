@@ -3,6 +3,7 @@ package com.atech.mongodbapp.controllers;
 import com.atech.mongodbapp.entity.products.Fire;
 import com.atech.mongodbapp.service.products.FireService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/fire")
 public class FireController {
 
+    public static final int PAGE_SIZE = 5;
     private final FireService fireService;
 
     public FireController(FireService fireService) {
@@ -24,8 +26,10 @@ public class FireController {
     @GetMapping("/list")
     public String listAllItems(Model model){
 
-        model.addAttribute("fireList", fireService.findAll());
-        return "fire/fireList";
+        return getPaginated(1, model);
+
+//        model.addAttribute("fireList", fireService.findAll());
+//        return "fire/fireList";
     }
 
     @GetMapping("/new")
@@ -64,7 +68,9 @@ public class FireController {
         if (!str.trim().equals("")) {
             fireService.findAll()
                     .forEach(fire -> {
-                        if (fire.getTybeNumber().toLowerCase().contains(str) || fire.getDescription().toLowerCase().contains(str)) {
+                        if (fire.getTybeNumber().toLowerCase().contains(str) ||
+                            fire.getDescription().toLowerCase().contains(str)) {
+
                             log.error("inside if statement");
                             fireList.add(fire);
                         }
@@ -75,7 +81,27 @@ public class FireController {
         }
 
         model.addAttribute("fireList", fireList);
-        return "fire/fireList";
 
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", fireList.size() / PAGE_SIZE);
+        model.addAttribute("totalElements", fireList.stream().count());
+
+        return "fire/fireList";
     }
+
+    @GetMapping("/page/{pageNo}")
+    public String getPaginated(@PathVariable int pageNo, Model model){
+
+        Page<Fire> page = fireService.findPaginated(pageNo, PAGE_SIZE);
+        List<Fire> fireList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+
+        model.addAttribute("fireList", fireList);
+
+        return "fire/fireList";
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.atech.mongodbapp.service;
 
 import com.atech.mongodbapp.entity.Employee;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface EmployeeService {
     void deleteById(String id);
 
     void delete(Employee employee);
+
+    Page<Employee> findPaginated(int pageNo, int pageSize);
 
 }

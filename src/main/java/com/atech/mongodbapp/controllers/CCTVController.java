@@ -3,15 +3,19 @@ package com.atech.mongodbapp.controllers;
 import com.atech.mongodbapp.entity.products.CCTV;
 import com.atech.mongodbapp.service.products.CCTVService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/cctv")
 public class CCTVController {
 
+    public static final int PAGE_SIZE = 5;
     private final CCTVService cctvService;
 
     public CCTVController(CCTVService cctvService) {
@@ -21,8 +25,24 @@ public class CCTVController {
     @GetMapping("/list")
     public String cctvList(Model model){
 
-        model.addAttribute("cctvList", cctvService.findAll());
+        return getPaginated(1, model);
+//        model.addAttribute("cctvList", cctvService.findAll());
+//        return "cctv/cctvList";
+    }
+
+    @GetMapping("/page/{pageNo}")
+    public String getPaginated(@PathVariable int pageNo, Model model){
+
+        Page<CCTV> page = cctvService.findPaginated(pageNo, PAGE_SIZE);
+        List<CCTV> cctvList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("totalPages", page.getTotalPages());
+
+        model.addAttribute("cctvList", cctvList);
         return "cctv/cctvList";
+
     }
 
     @GetMapping("/new")
@@ -57,9 +77,9 @@ public class CCTVController {
     public String searchItem(Model model, @ModelAttribute("name")String name){
 
         log.error("inside cctv controller search");
-
-        model.addAttribute("cctvList", cctvService.searchAnyByString(name));
+        model.addAttribute("cctvList", cctvService.searchByAnyString(name));
 
         return "cctv/cctvList";
     }
+
 }

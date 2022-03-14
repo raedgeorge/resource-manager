@@ -5,6 +5,9 @@ import com.atech.mongodbapp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.codecs.pojo.IdGenerators;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,5 +59,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void delete(Employee employee) {
         employeeRepository.delete(employee);
 
+    }
+
+    @Override
+    public Page<Employee> findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+
+        return employeeRepository.findAll(pageable);
     }
 }

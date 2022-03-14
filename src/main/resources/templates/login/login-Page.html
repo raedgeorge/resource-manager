@@ -18,49 +18,62 @@
     ></script>
 
 </head>
-<body>
+<body style="margin: 0 auto; width: 900px; position: relative; ">
 
-<div class="container" style="width: 25%; background-color: lightgray;
-    margin-top: 60px; padding: 10px;border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px">
-    <label th:text="'Login Page'">login</label>
+<div  style="width: 100%; background-color: lightgray;
+    margin-top: 25px; padding: 10px;border-bottom-left-radius: 10px;
+    border-top: deepskyblue solid 5px; text-align: center;
+    border-top-right-radius: 10px;  ">
+    <label th:text="'Welcome To Atech Solutions'"
+           style="text-transform: uppercase; font-size: 24px; font-family: sans-serif">welcome header</label>
 </div>
 
-<div style="margin-left: 600px; width: 25%; margin-top: 5px" class="container">
-    <label th:if="${param.error}" style="color: darkred">invalid username or password, try again</label>
+<div style="margin-left: 500px; width: 40%; margin-top: 15px; margin-bottom: 20px;" class="container">
+    <label th:if="${param.error}" style="color: darkred">invalid username or password, please try again</label>
     <label th:if="${param.logout}" style="color: darkred">you have logged out</label>
 </div>
 
-<div class="container" style="width: 25%; height: 200px;
+<div style="height: 300px; border-bottom: deepskyblue solid 10px;">
+
+<div class="container" style="width: 45%; height: 200px; position: absolute; left: 500px;
      background-color: lightskyblue; padding: 25px; border-radius: 10px">
 
     <form action="#" th:action="@{/authenticateTheUser}"
           method="post">
 
-    <div>
-    <label th:text="'user name'">user name</label>
-    <input type="text" name="username"
-      style="margin-left: 0.50cm">
-    </div>
+                <div>
+                        <label th:text="'user name'">user name</label>
+                        <input type="text" name="username"
+                        style="margin-left: 0.50cm">
+                </div>
 
-    <div style="margin-top: 25px">
-        <label th:text="'user name'">password</label>
-        <input type="password" name="password"
-         style="margin-left: 0.5cm">
-    </div>
+                <div   style="margin-top: 25px">
+                       <label th:text="'password'">password</label>
+                       <input type="password" name="password"
+                       style="margin-left: 0.6cm">
+                </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary"
-         style="margin-left: 1.5cm; margin-top: 1cm; width: 2cm">Login</button>
+                <div>
+                    <button type="submit" class="btn btn-primary"
+                     style="margin-left: 2.8cm; margin-top: 1cm; width: 4cm; font-family: sans-serif;">Login</button>
 
-        <input type="button" class="btn btn-primary"
-        th:onclick="| window.location.href = '@{../}'|"
-        style="margin-left: 1cm; margin-top: 1cm" value="Home Page">
-    </div>
-
+<!--                    <input type="button" class="btn btn-primary"-->
+<!--                    th:onclick="| window.location.href = '@{../}'|"-->
+<!--                    style="margin-left: 1cm; margin-top: 1cm" value="Home Page">-->
+                </div>
     </form>
+</div>
+
+        <div style="position: absolute;">
+            <img src="#" th:src="@{images/erp.jpg}"  alt="erp-image" height="200" width="auto">
+        </div>
+
+
 
 </div>
+<footer>
+    <p>Powered By ATech Solutions. Copyright &copy; 2022</p>
+</footer>
 
 </body>
 </html>

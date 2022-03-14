@@ -18,7 +18,6 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource);

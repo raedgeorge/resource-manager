@@ -18,32 +18,30 @@
     ></script>
 
 </head>
-<body>
+<body style="position: relative">
 
 <div class="container" style="width: 80%; margin-top: 50px; background-color: lightgray; padding: 10px">
 
-    <div class="header" style="text-align: center">
+    <div class="header" style="text-align: center; position: relative">
         <h2 th:text="'Fire System'">fire system</h2>
-    </div>
+
+        <div style="position: absolute; top: 60px; right: 0px">
+            <form action="#" th:action="@{/fire/search}" method="get">
+                <input type="text" th:name="name" style="width: 10cm; border-radius: 3px;">
+                <input type="submit" value="Search" class="btn btn-info">
+            </form>
+        </div>
+
+        <div style="margin-top: 20px; position: absolute; top:40px;left: 5px;bottom: 20px;">
+            <button type="button" th:onclick="|window.location.href='@{/fire/new}'|"
+                    class="btn btn-primary"
+            >Add new item</button>
+        </div>
+</div>
+
     <hr  style="line-break: normal">
 
-    <div style="margin-top: 20px">
-        <button type="button" th:onclick="|window.location.href='@{/fire/new}'|"
-        class="btn btn-primary"
-        >Add new item</button>
-
-
-        <form action="#" th:action="@{/fire/search}" method="get">
-
-        <input type="text" th:name="name" style="width: 10cm; border-radius: 3px; margin-left: 16.5cm">
-
-        <input type="submit" value="Search" class="btn btn-info">
-
-        </form>
-
-    </div>
-
-    <div>
+    <div style="position: relative; margin-top:45px; ">
         <table class="table table-responsive table-striped" style="margin-top: 15px">
             <thead class="table-header" style="background-color: deepskyblue">
                 <tr>
@@ -64,9 +62,11 @@
                     <td th:text="${item.brands}"></td>
                     <td th:text="${item.quantity}"></td>
                     <td>
-                        <a th:href="@{'/fire/'+ ${item.id}+ '/update'}" style="color: darkgreen; font-weight: bold">Update</a>
+                        <a th:href="@{'/fire/'+ ${item.id}+ '/update'}"
+                           style="color: darkgreen; font-weight: bold">Update</a>
                         |
-                        <a th:href="@{'/fire/'+ ${item.id}+ '/delete'}" style="color: darkred; font-weight: bold">Delete</a>
+                        <a th:href="@{'/fire/'+ ${item.id}+ '/delete'}"
+                           style="color: darkred; font-weight: bold">Delete</a>
                     </td>
                 </tr>
             </tbody>
@@ -74,10 +74,36 @@
     </div>
 
     <div>
-        <a href="#" th:href="@{/products/index}" style="font-weight: bold" class="btn btn-primary">Products Dash Board</a>
+        <a href="#" th:href="@{/products/index}"
+           style="font-weight: bold" class="btn btn-primary">Products Dash Board</a>
     </div>
+</div>
+
+<div style="position: absolute; left: 160px; bottom: -60px; border-bottom: deepskyblue solid 5px;">
+        <label th:text="'Total Elements : ' + ${totalElements}"></label>
+
+        <div style="display: inline-block; margin-left: 30px">
+        <a th:if="${currentPage != 1}" th:href="@{'/fire/page/1'}">First Page</a>
+        <span th:unless="${currentPage != 1}">First Page</span>
+        </div>
+
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}" style="margin-left: 20px">
+            <a th:if="${currentPage != i}" th:href="@{'/fire/page/' + ${i} }">[[${i}]]</a>
+            &nbsp;
+            <span th:unless="${currentPage != i}">[[${i}]]</span>
+            &nbsp;
+        </span>
+
+        <div style="display: inline-block; margin-left: 30px">
+            <a th:if="${currentPage != totalPages}" th:href="@{'/fire/page/' + ${totalPages} }">
+                Last Page
+            </a>
+            <span th:unless="${currentPage != totalPages}">Last Page</span>
+        </div>
+
 
 </div>
+
 
 </body>
 </html>

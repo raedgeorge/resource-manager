@@ -77,6 +77,30 @@
         <a href="#" th:href="@{/products/index}" style="font-weight: bold" class="btn btn-primary">Products Dash Board</a>
     </div>
 
+    <div style="display: inline-block;">
+
+        <label th:text="'Total items : ' + ${totalElements} ">total elements</label>
+        &nbsp; &nbsp;
+
+        <span>
+            <a th:if="${currentPage != 1}" th:href="@{'/cctv/page/1'}">First Page</a>
+            <span th:unless="${currentPage != 1}">First Page</span>
+        </span>
+
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <a th:if="${currentPage != i}" th:href="@{'/cctv/page/' + ${i} }">[[${i}]]</a>
+            &nbsp; &nbsp;
+            <span th:unless="${currentPage != i}">[[${i}]]</span>
+            &nbsp;
+        </span>
+
+        <span>
+            <a th:if="${currentPage != totalPages}" th:href="@{'/cctv/page/' + ${totalPages} }">Last Page</a>
+            <span th:unless="${currentPage != totalPages}">Last Page</span>
+        </span>
+
+    </div>
+
 </div>
 
 </body>

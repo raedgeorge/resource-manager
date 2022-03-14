@@ -42,4 +42,17 @@ public class HolidayController {
         employeeService.save(employee, empId);
         return "redirect:/employees/"+ empId + "/details";
     }
+
+    @GetMapping("/employee/{empId}/holiday/{holidayId}/delete")
+    public String deleteHoliday(@PathVariable String empId,
+                                @PathVariable String holidayId){
+
+        Employee employee = employeeService.findById(empId);
+        Holiday holiday = holidayService.findHolidayById(holidayId);
+        employee.getHolidaysList().remove(holiday);
+        holidayService.delete(holiday);
+        employeeService.save(employee, empId);
+
+        return "redirect:/employees/" + empId + "/details";
+    }
 }

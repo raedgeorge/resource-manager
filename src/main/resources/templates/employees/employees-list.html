@@ -20,22 +20,26 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"
     ></script>
 
+
+    <link href="css/styles.css" rel="stylesheet">
+
 </head>
-<body>
+<body style="position: relative; margin: 0 auto; width: 1200px;">
 
 <div style="margin-top: 20px; margin-left: 30px">
-    <a href="#" th:href="@{../}" style="font-weight: bold">Home Page</a>
+    <a href="#" th:href="@{/}" style="font-weight: bold">Home Page</a>
 
     <form action="#" th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-danger"
-                style="margin-left: 1360px; margin-bottom: -20px; width: 3cm">Log Out</button>
+                style="position: absolute; right: 15px; top: 90px; width: 3cm">Log Out</button>
     </form>
 
-    <div>
-        <label th:text="'Logged user: '" class="text-info"></label>
-        <span sec:authentication="name" style="font-weight: bold; font-style: italic"></span>
-        |
-        <span sec:authentication ="principal.authorities" style="font-weight: bold; font-style: italic"></span>
+    <div style="margin-bottom: 80px;">
+        <label th:text="'Welcome: '" class="text-info"></label>
+        <span sec:authentication="name" style="font-weight: bold; font-style: italic; font-family: Consolas"></span>
+
+<!--        <span sec:authentication ="principal.authorities"-->
+<!--              style="font-weight: bold; font-style: italic"></span>-->
     </div>
 
 </div>
@@ -69,11 +73,11 @@
 
                 <div sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')">
                 <a href="#"
-                   th:href="@{${tempEmp.id}+'/update'}"
+                   th:href="@{'/employees/' + ${tempEmp.id}+'/update'}"
                 >Update</a>
                 |
                 <a href="#"
-                   th:href="@{${tempEmp.id}+'/delete'}"
+                   th:href="@{ '/employees/' + ${tempEmp.id}+'/delete'}"
                    style="color: red"
                 >Delete</a>
                 </div>
@@ -81,25 +85,56 @@
 
             <td><a href="#"
                    style="font-weight: bolder"
-                   th:href="@{${tempEmp.id}+ '/details'}">
+                   th:href="@{ '/employees/'+ ${tempEmp.id}+ '/details'}">
                 Details</a>
             </td>
-
             </div>
-
         </tr>
         </tbody>
     </table>
-
 </div>
 
-<div style="margin-top: 10px">
+<div style="position: absolute; top: 90px; left: 5px">
 
     <a href="#"
        th:href="@{/employees/new}"
        class="btn btn-primary" style="width: 5cm; margin-left: 0.4cm">
         Add Employee</a>
 </div>
+
+<div style="position: absolute;bottom: -40px;left: 15px; border-bottom: deepskyblue solid 5px">
+
+    <div style="display: inline-block">
+    <label th:text="'Total Elements : ' + ${totalElements} " ></label>
+    </div>
+
+    <div style="display: inline-block; margin-left: 20px">
+        <a th:if="${currentPage != 1}" th:href="@{'employees/page/1'}">First Page</a>
+        <span th:unless="${currentPage != 1}">First Page</span>
+    </div>
+
+    <div style="display: inline-block; margin-left: 50px;">
+        <span th:each="i : ${#numbers.sequence(1, totalPages) }">
+            <a th:if="${currentPage != i}" th:href="@{'/employees/page/' + ${i} }">
+                [[${i}]]
+            </a>
+            <span th:unless="${currentPage != i}">[[${i}]]</span>
+            &nbsp; &nbsp;
+        </span>
+    </div>
+
+    <div style="display: inline-block; margin-left: 30px;">
+        <a th:if="${currentPage != totalPages}" th:href="@{'/employees/page/' + ${totalPages}}">
+            Last Page
+        </a>
+        <span th:unless="${currentPage != totalPages}">Last Page</span>
+    </div>
+
+</div>
+
+<footer>
+    <p>Powered By ATech Solutions. Copyright &copy; 2022 </p>
+</footer>
 
 </body>
 </html>

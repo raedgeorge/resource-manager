@@ -5,7 +5,8 @@
     <title>details</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
 
@@ -18,16 +19,17 @@
     ></script>
 
 </head>
-<body>
-    <div class="container" style="margin-top: 50px; background-color: lightgray; padding: 10px">
+<body style="margin: 0 auto; width: 900px;">
+    <div  style="margin-top: 50px; background-color: lightgray; padding: 10px; position: relative;">
 
-        <div class="header" style="background-color: lightgray; padding: 5px">
+        <div class="header" style="background-color: lightgray; padding: 5px; text-align: center">
             <h2 th:text="${employee.firstName} +' ' + ${employee.lastName}"></h2>
 
-            <div style="border-color: deepskyblue; position:fixed; ">
-            <img src="../../static/images/face.png" th:src="@{'/images/'+ ${employee.id} + '/empImage'}"
-                 alt="face image"
-                 width="150" height="150" style="margin-left: 400px; border-radius: 50%"/>
+            <div style=" position:fixed; position: absolute; right: 25px; top: 84px; ">
+            <img src="../../static/images/face.png"
+                 th:src="@{'/images/'+ ${employee.id} + '/empImage'}"
+                 alt="personal image"
+                 width="140" height="140" style="margin-left: 700px; border-radius: 50%"/>
             </div>
 
         </div>
@@ -57,10 +59,10 @@
 
 </div>
 
-    <div class="container" style="background-color: lightgray; margin-top: 25px; padding: 10px">
+    <div  style="background-color: lightgray; margin-top: 25px; padding: 10px; position: relative; ">
 
-    <div class="container-fluid" style="background-color: lightskyblue;">
-        <h3 th:text="'Off Days'">Off Days</h3>
+    <div  style="background-color: lightskyblue;padding: 5px; text-align: center">
+        <h3 th:text="'Employee Off Days'">Off Days</h3>
     </div>
 
         <div  style="margin-top: 10px">
@@ -70,19 +72,23 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Info</th>
+                        <th>Days Count</th>
                         <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="day : ${holidays}">
-                        <td th:text="${day.startDate}">10-2-2022</td>
-                        <td th:text="${day.endDate}">15-2-2022</td>
-                        <td th:text="${day.info}">personal</td>
-                        <td>
-                            <a href="#" th:href="@{/employees}">Update</a>
+                    <tr th:if="${holidays != null}" th:each="day : ${holidays}">
+                        <td th:if="${day != null}" th:text="${day.startDate}">10-2-2022</td>
+                        <td th:if="${day != null}" th:text="${day.endDate}">15-2-2022</td>
+                        <td th:if="${day != null}" th:text="${day.info}">personal</td>
+                        <td th:if="${day != null}" th:text="${day.endDate.getDayOfYear() - day.startDate.getDayOfYear()}">
+                        </td>
+                        <td th:if="${day != null}">
+                            <a href="#" th:href="@{/employees}" style="font-weight: bold">Update</a>
                             |
-                            <a href="#" th:href="@{/employees}">Delete</a>
+                            <a href="#" th:href="@{'/employee/'+ ${employee.id} + '/holiday/' + ${day.id}+ '/delete'}"
+                               style="color: darkred; font-weight: bold">Delete</a>
                         </td>
                     </tr>
                 </tbody>
@@ -93,9 +99,12 @@
                 class="btn btn-primary">Add</a>
             </div>
 
+            <div style="position: absolute; bottom: 10px; right: 260px; font-size: 20px; font-family: Consolas">
+                <label th:text="'Total : ' + ${totalDays} + ' Days' ">off days count</label>
+            </div>
+
         </div>
 
     </div>
-
 </body>
 </html>

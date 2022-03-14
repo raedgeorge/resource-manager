@@ -1,7 +1,7 @@
 package com.atech.mongodbapp.service.products;
 
 import com.atech.mongodbapp.entity.products.CCTV;
-import com.atech.mongodbapp.entity.products.Fire;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,5 +17,7 @@ public interface CCTVService {
 
     void deleteById(String id);
 
-    List<CCTV> searchAnyByString(String str);
+    List<CCTV> searchByAnyString(String str);
+
+    Page<CCTV> findPaginated(int pageNo, int pageSize);
 }

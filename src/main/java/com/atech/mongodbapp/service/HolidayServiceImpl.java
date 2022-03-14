@@ -2,6 +2,9 @@ package com.atech.mongodbapp.service;
 
 import com.atech.mongodbapp.entity.Holiday;
 import com.atech.mongodbapp.repository.HolidayRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,7 +33,19 @@ public class HolidayServiceImpl implements  HolidayService{
     }
 
     @Override
+    public Holiday findHolidayById(String id) {
+        return holidayRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public void delete(Holiday holiday) {
         holidayRepository.delete(holiday);
+    }
+
+    @Override
+    public Page<Holiday> findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return holidayRepository.findAll(pageable);
     }
 }

@@ -3,11 +3,13 @@ package com.atech.mongodbapp.service.products;
 import com.atech.mongodbapp.entity.products.CCTV;
 import com.atech.mongodbapp.repository.products.CCTVRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -55,18 +57,32 @@ public class CCTVServiceImpl implements CCTVService{
     }
 
     @Override
-    public List<CCTV> searchAnyByString(String str) {
+    public List<CCTV> searchByAnyString(String str) {
 
         log.error("inside the cctv service impl search method");
 
-        List<CCTV> cctvList;
+        List<CCTV> cctvList = new ArrayList<>();
 
-        cctvList = cctvRepository.findCCTVByTybeNumberIn(str).stream()
-                .filter(cctv -> cctv.getTybeNumber().equalsIgnoreCase(str))
-                .collect(Collectors.toList());
+        if (!str.trim().equals("")) {
+            cctvRepository.findAll().stream().forEach(cctv -> {
+                if (cctv.getTybeNumber().toLowerCase().contains(str.toLowerCase()) ||
+                    cctv.getDescription().toLowerCase().contains(str.toLowerCase())) {
+
+                    cctvList.add(cctv);
+                }
+            });
+        }
+        else cctvList.addAll(cctvRepository.findAll());
 
         System.out.println("SIZE >>> " + cctvList.size());
 
         return cctvList;
+    }
+
+    @Override
+    public Page<CCTV> findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return cctvRepository.findAll(pageable);
     }
 }
