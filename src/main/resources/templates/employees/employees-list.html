@@ -34,6 +34,10 @@
                 style="position: absolute; right: 15px; top: 90px; width: 3cm">Log Out</button>
     </form>
 
+    <div>
+        <a href="#" th:href="@{/print/pdf}">Export PDF</a>
+    </div>
+
     <div style="margin-bottom: 80px;">
         <label th:text="'Welcome: '" class="text-info"></label>
         <span sec:authentication="name" style="font-weight: bold; font-style: italic; font-family: Consolas"></span>

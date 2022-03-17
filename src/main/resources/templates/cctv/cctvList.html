@@ -18,33 +18,29 @@
     ></script>
 
 </head>
-<body>
+<body style="width: 1400px; margin: 100px auto;">
 
-<div class="container" style="width: 80%; margin-top: 50px; background-color: lightgray; padding: 10px">
+<div  style="text-align: center; background-color: lightskyblue; padding: 10px;margin-bottom: 40px;">
+    <h2 th:text="'CCTV System'">cctv system</h2>
+</div>
 
-    <div class="header" style="text-align: center">
-        <h2 th:text="'CCTV System'">cctv system</h2>
-    </div>
-    <hr  style="line-break: normal">
+<div  style="position: relative;width: 100%; background-color: lightgray; padding: 20px;">
 
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px; margin-bottom: 30px; position: absolute; left: 20px;top: 0px;">
         <button type="button" th:onclick="|window.location.href='@{/cctv/new}'|"
         class="btn btn-primary"
         >Add new item</button>
-
-
-        <form action="#" th:action="@{/cctv/search}" method="post">
-
-        <input type="text" th:name="name" style="width: 10cm; border-radius: 3px; margin-left: 16.5cm">
-
-        <input type="submit" value="Search" class="btn btn-info">
-
-        </form>
-
     </div>
 
+        <div style="position: absolute; top: 20px; right: 20px;">
+            <form action="#" th:action="@{/cctv/search}" method="post">
+            <input type="text" th:name="name" style="width: 10cm; border-radius: 3px; margin-left: 16.5cm">
+            <input type="submit" value="Search" class="btn btn-info">
+            </form>
+        </div>
+
     <div>
-        <table class="table table-responsive table-striped" style="margin-top: 15px">
+        <table class="table table-responsive table-striped" style="margin-top: 40px">
             <thead class="table-header" style="background-color: deepskyblue">
                 <tr>
                     <th>Id</th>

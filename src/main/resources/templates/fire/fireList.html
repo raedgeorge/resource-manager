@@ -28,7 +28,7 @@
         <div style="position: absolute; top: 60px; right: 0px">
             <form action="#" th:action="@{/fire/search}" method="get">
                 <input type="text" th:name="name" style="width: 10cm; border-radius: 3px;">
-                <input type="submit" value="Search" class="btn btn-info">
+                <button type="submit" value="Search" class="btn glyphicon-search btn-info">Search</button>
             </form>
         </div>
 
@@ -66,7 +66,7 @@
                            style="color: darkgreen; font-weight: bold">Update</a>
                         |
                         <a th:href="@{'/fire/'+ ${item.id}+ '/delete'}"
-                           style="color: darkred; font-weight: bold">Delete</a>
+                           style="color: darkred; font-weight: bold;">Delete</a>
                     </td>
                 </tr>
             </tbody>
