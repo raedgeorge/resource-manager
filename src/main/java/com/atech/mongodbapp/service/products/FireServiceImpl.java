@@ -5,6 +5,7 @@ import com.atech.mongodbapp.repository.products.FireRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,9 +62,13 @@ public class FireServiceImpl implements FireService {
     }
 
     @Override
-    public Page<Fire> findPaginated(int pageNo, int pageSize) {
+    public Page<Fire> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        Sort ascending = Sort.by(sortField).ascending();
+        Sort descending = Sort.by(sortField).descending();
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? ascending : descending;
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
 
         return fireRepository.findAll(pageable);
     }

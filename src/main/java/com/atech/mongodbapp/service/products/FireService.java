@@ -19,5 +19,5 @@ public interface FireService {
 
     List<Fire> searchAnyByString(String str);
 
-    Page<Fire> findPaginated(int pageNo, int pageSize);
+    Page<Fire> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

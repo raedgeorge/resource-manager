@@ -26,7 +26,7 @@ public class FireController {
     @GetMapping("/list")
     public String listAllItems(Model model){
 
-        return getPaginated(1, model);
+        return getPaginated(1,"description","asc", model);
 
 //        model.addAttribute("fireList", fireService.findAll());
 //        return "fire/fireList";
@@ -90,14 +90,21 @@ public class FireController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public String getPaginated(@PathVariable int pageNo, Model model){
+    public String getPaginated(@PathVariable int pageNo,
+                               @RequestParam("sortField") String sortField,
+                               @RequestParam("sortDirection") String sortDirection,
+                               Model model){
 
-        Page<Fire> page = fireService.findPaginated(pageNo, PAGE_SIZE);
+        Page<Fire> page = fireService.findPaginated(pageNo, PAGE_SIZE, sortField, sortDirection);
         List<Fire> fireList = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalElements", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("fireList", fireList);
 

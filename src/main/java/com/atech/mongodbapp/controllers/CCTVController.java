@@ -25,20 +25,27 @@ public class CCTVController {
     @GetMapping("/list")
     public String cctvList(Model model){
 
-        return getPaginated(1, model);
+        return getPaginated(1,"description", "asc", model);
 //        model.addAttribute("cctvList", cctvService.findAll());
 //        return "cctv/cctvList";
     }
 
     @GetMapping("/page/{pageNo}")
-    public String getPaginated(@PathVariable int pageNo, Model model){
+    public String getPaginated(@PathVariable int pageNo,
+                               @RequestParam("sortField") String sortField,
+                               @RequestParam("sortDirection") String sortDirection,
+                               Model model){
 
-        Page<CCTV> page = cctvService.findPaginated(pageNo, PAGE_SIZE);
+        Page<CCTV> page = cctvService.findPaginated(pageNo, PAGE_SIZE, sortField, sortDirection);
         List<CCTV> cctvList = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalElements", page.getTotalElements());
         model.addAttribute("totalPages", page.getTotalPages());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reversedSortDirection", sortDirection.equals("asc") ? "desc" : "asc" );
 
         model.addAttribute("cctvList", cctvList);
         return "cctv/cctvList";

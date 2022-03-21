@@ -19,5 +19,5 @@ public interface CCTVService {
 
     List<CCTV> searchByAnyString(String str);
 
-    Page<CCTV> findPaginated(int pageNo, int pageSize);
+    Page<CCTV> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

@@ -44,10 +44,18 @@
             <thead class="table-header" style="background-color: deepskyblue">
                 <tr>
                     <th>Id</th>
-                    <th>Description</th>
-                    <th>Type number</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
+                    <th>
+                        <a th:href="@{'/cctv/page/' + ${currentPage} + '?sortField=description&sortDirection=' + ${reversedSortDirection} }">Description</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/cctv/page/' + ${currentPage} + '?sortField=typeNumber&sortDirection=' + ${reversedSortDirection}}">Type number</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/cctv/page/' + ${currentPage} + '?sortField=brand&sortDirection=' + ${reversedSortDirection}}">Brand</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/cctv/page/' + ${currentPage} + '?sortField=quantity&sortDirection=' + ${reversedSortDirection}}">Quantity</a>
+                        </th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -79,19 +87,19 @@
         &nbsp; &nbsp;
 
         <span>
-            <a th:if="${currentPage != 1}" th:href="@{'/cctv/page/1'}">First Page</a>
+            <a th:if="${currentPage != 1}" th:href="@{'/cctv/page/1?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection} }">First Page</a>
             <span th:unless="${currentPage != 1}">First Page</span>
         </span>
 
         <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-            <a th:if="${currentPage != i}" th:href="@{'/cctv/page/' + ${i} }">[[${i}]]</a>
+            <a th:if="${currentPage != i}" th:href="@{'/cctv/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection} }">[[${i}]]</a>
             &nbsp; &nbsp;
             <span th:unless="${currentPage != i}">[[${i}]]</span>
             &nbsp;
         </span>
 
         <span>
-            <a th:if="${currentPage != totalPages}" th:href="@{'/cctv/page/' + ${totalPages} }">Last Page</a>
+            <a th:if="${currentPage != totalPages}" th:href="@{'/cctv/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection} }">Last Page</a>
             <span th:unless="${currentPage != totalPages}">Last Page</span>
         </span>
 

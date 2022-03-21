@@ -32,6 +32,10 @@
             </form>
         </div>
 
+        <div>
+            <a href="#" th:href="@{/fire/print/pdf}">Export Pdf</a>
+        </div>
+
         <div style="margin-top: 20px; position: absolute; top:40px;left: 5px;bottom: 20px;">
             <button type="button" th:onclick="|window.location.href='@{/fire/new}'|"
                     class="btn btn-primary"
@@ -46,10 +50,20 @@
             <thead class="table-header" style="background-color: deepskyblue">
                 <tr>
                     <th>Id</th>
-                    <th>Description</th>
-                    <th>Type number</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
+                    <th>
+                        <a th:href="@{'/fire/page/' + ${currentPage} + '?sortField=description&sortDirection=' + ${reverseSortDirection}}"
+                        >Description</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/fire/page/' + ${currentPage} +'?sortField=typeNumber&sortDirection=' + ${reverseSortDirection}}"
+                        >Type number</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/fire/page/' + ${currentPage} + '?sortField=brand&sortDirection=' + ${reverseSortDirection} }">Brand</a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/fire/page/' + ${currentPage} + '?sortField=quantity&sortDirection=' + ${reverseSortDirection} }">Quantity</a>
+                        </th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -83,19 +97,19 @@
         <label th:text="'Total Elements : ' + ${totalElements}"></label>
 
         <div style="display: inline-block; margin-left: 30px">
-        <a th:if="${currentPage != 1}" th:href="@{'/fire/page/1'}">First Page</a>
+        <a th:if="${currentPage != 1}" th:href="@{'/fire/page/1?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">First Page</a>
         <span th:unless="${currentPage != 1}">First Page</span>
         </div>
 
         <span th:each="i : ${#numbers.sequence(1, totalPages)}" style="margin-left: 20px">
-            <a th:if="${currentPage != i}" th:href="@{'/fire/page/' + ${i} }">[[${i}]]</a>
+            <a th:if="${currentPage != i}" th:href="@{'/fire/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection} }">[[${i}]]</a>
             &nbsp;
             <span th:unless="${currentPage != i}">[[${i}]]</span>
             &nbsp;
         </span>
 
         <div style="display: inline-block; margin-left: 30px">
-            <a th:if="${currentPage != totalPages}" th:href="@{'/fire/page/' + ${totalPages} }">
+            <a th:if="${currentPage != totalPages}" th:href="@{'/fire/page/' + ${totalPages} + '?sortField=' + ${sortField}  + '&sortDirection=' + ${sortDirection} }">
                 Last Page
             </a>
             <span th:unless="${currentPage != totalPages}">Last Page</span>

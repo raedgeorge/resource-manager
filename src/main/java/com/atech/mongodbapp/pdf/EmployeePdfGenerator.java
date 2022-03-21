@@ -28,7 +28,7 @@ public class EmployeePdfGenerator {
         cell.setPadding(5);
 
         Font font = FontFactory.getFont(FontFactory.COURIER_BOLD);
-        font.setColor(Color.WHITE);
+        font.setColor(Color.BLACK);
 
         cell.setPhrase(new Phrase("Employee Id",font));
         table.addCell(cell);

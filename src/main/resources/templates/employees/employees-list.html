@@ -54,8 +54,14 @@
         <thead class="table-header" style="background-color: deepskyblue">
         <tr>
             <th>Id</th>
-            <th>First name</th>
-            <th>Last name</th>
+            <th>
+                <a th:href="@{'/employees/page/' + ${currentPage} + '?sortField=firstName&sortDirection=' + ${reverseSortDirection} }">
+                First name</a>
+            </th>
+            <th>
+                <a th:href="@{'/employees/page/' + ${currentPage} + '?sortField=lastName&sortDirection=' + ${reverseSortDirection} }">
+                Last name</a>
+            </th>
             <th>Email</th>
             <div sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')">
             <th>Action</th>
@@ -113,13 +119,13 @@
     </div>
 
     <div style="display: inline-block; margin-left: 20px">
-        <a th:if="${currentPage != 1}" th:href="@{'employees/page/1'}">First Page</a>
+        <a th:if="${currentPage != 1}" th:href="@{'/employees/page/1?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">First Page</a>
         <span th:unless="${currentPage != 1}">First Page</span>
     </div>
 
     <div style="display: inline-block; margin-left: 50px;">
         <span th:each="i : ${#numbers.sequence(1, totalPages) }">
-            <a th:if="${currentPage != i}" th:href="@{'/employees/page/' + ${i} }">
+            <a th:if="${currentPage != i}" th:href="@{'/employees/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">
                 [[${i}]]
             </a>
             <span th:unless="${currentPage != i}">[[${i}]]</span>
@@ -128,7 +134,7 @@
     </div>
 
     <div style="display: inline-block; margin-left: 30px;">
-        <a th:if="${currentPage != totalPages}" th:href="@{'/employees/page/' + ${totalPages}}">
+        <a th:if="${currentPage != totalPages}" th:href="@{'/employees/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDirection=' +${sortDirection} }">
             Last Page
         </a>
         <span th:unless="${currentPage != totalPages}">Last Page</span>

@@ -34,7 +34,7 @@ public class EmployeeController {
 //        model.addAttribute("employees", employeeService.findAll());
 //        return "employees/employees-list";
 
-        return findPaginated(1, model);
+        return getPaginated(1, "firstName", "asc" , model);
     }
 
     @GetMapping("/new")
@@ -99,16 +99,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable int pageNo, Model model){
+    public String getPaginated(@PathVariable int pageNo,
+                               @RequestParam("sortField") String sortField,
+                               @RequestParam("sortDirection") String sortDirection,
+                               Model model){
 
-        int pageSize = 6;
+        int pageSize = 5;
 
-        Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
+        Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDirection);
         List<Employee> employeeList = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalElements", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("employees", employeeList);
 
@@ -117,7 +124,10 @@ public class EmployeeController {
 
     @GetMapping("/employee/{empId}/holiday/page/{pageNo}")
     public String getPaginated(
-            @PathVariable String empId, Model model,@PathVariable int pageNo){
+            @PathVariable String empId,
+            @RequestParam("sortField") String sortField,
+            @RequestParam("sortDirection") String sortDirection,
+            Model model,@PathVariable int pageNo){
 
         Page<Holiday> page = holidayService.findPaginated(pageNo, PAGE_SIZE);
         List<Holiday> holidays = page.getContent();
