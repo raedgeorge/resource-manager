@@ -2,9 +2,7 @@ package com.atech.mongodbapp.pdf;
 
 import com.atech.mongodbapp.entity.Employee;
 import com.lowagie.text.*;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.awt.Color;
@@ -60,18 +58,27 @@ public class EmployeePdfGenerator {
         PdfWriter.getInstance(document,response.getOutputStream());
 
         document.open();
-        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        Font font = FontFactory.getFont(FontFactory.COURIER_BOLD);
         font.setSize(18);
-        font.setColor(Color.GRAY);
+        font.setColor(Color.BLACK);
 
-        Paragraph reportTitle = new Paragraph("ATech Employees", font);
-        reportTitle.setAlignment(Paragraph.ALIGN_CENTER);
+        Font font1 = FontFactory.getFont(FontFactory.COURIER);
+        font1.setSize(15);
+        font1.setColor(Color.BLACK);
 
-        Paragraph mainHeader = new Paragraph("User Generated Report", font);
+        Paragraph header = new Paragraph("ATECH SOLUTIONS", font);
+        header.setAlignment(Paragraph.ALIGN_CENTER);
+        header.setSpacingAfter(15f);
+
+        Paragraph reportTitle = new Paragraph("Report : List Of Employees", font1);
+        reportTitle.setAlignment(Paragraph.ALIGN_LEFT);
+
+        Paragraph mainHeader = new Paragraph("User Generated Report", font1);
         mainHeader.setAlignment(Paragraph.ALIGN_LEFT);
 
+        document.add(header);
         document.add(reportTitle);
-        document.add(new Paragraph(String.valueOf(LocalDate.now()), font));
+        document.add(new Paragraph(String.valueOf(LocalDate.now()), font1));
         document.add(mainHeader);
 
         document.addAuthor("Atech Automatic Report");
